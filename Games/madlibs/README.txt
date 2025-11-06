@@ -1,0 +1,1 @@
+Here we have a madlibs game that ask you some questions and the generates a funny story based on those!
