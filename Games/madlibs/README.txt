@@ -1,1 +1,2 @@
-Here we have a madlibs game that ask you some questions and the generates a funny story based on those!
+This is a Python Madlibs game that lets you create hilarious stories by filling in blanks with your own words. 
+It's an interactive program that shows how fun programming with string and user input can be!
