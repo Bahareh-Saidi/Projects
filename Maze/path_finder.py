@@ -1,0 +1,107 @@
+import curses
+from curses import wrapper
+import queue
+import time
+
+maze = [
+    ["#", "O", "#", "#", "#", "#", "#", "#", "#"],
+    ["#", " ", " ", " ", " ", " ", " ", " ", "#"],
+    ["#", " ", "#", "#", " ", "#", "#", " ", "#"],
+    ["#", " ", "#", " ", " ", " ", "#", " ", "#"],
+    ["#", " ", "#", " ", "#", " ", "#", " ", "#"],
+    ["#", " ", "#", " ", "#", " ", "#", " ", "#"],
+    ["#", " ", "#", " ", "#", " ", "#", "#", "#"],
+    ["#", " ", " ", " ", " ", " ", " ", " ", "#"],
+    ["#", "#", "#", "#", "#", "#", "#", "X", "#"]
+]
+
+def print_maze(maze, standard_scr, path=[]):
+    BLUE = curses.color_pair(1)
+    RED = curses.color_pair(2)
+
+    ## Loop through everything in the maze
+    ## Loop through the rows
+    for i, row in enumerate(maze):
+        ## Loop through the columns
+        for j, value in enumerate(row):
+            if (i, j) in path:
+                standard_scr.addstr(i, j*2, "X", RED)
+            else:
+                standard_scr.addstr(i, j*2, value, BLUE)
+
+
+def find_start(maze, start):
+    for i, row in enumerate(maze):
+        for j, value in enumerate(row):
+            if value == start:
+                return i, j
+    return None
+
+def find_path(maze, standard_scr):
+    start = "O"
+    end = "X"
+    start_pos = find_start(maze, start)
+
+    ## First in and first out method for looping through all the neighbors
+    q = queue.Queue()
+    ## Position and path
+    q.put((start_pos, [start_pos]))
+
+    visited = set()
+
+    ## This ends if there's no path or we found the end
+    while not q.empty():
+        ## First element in the queue
+        current_pos, path = q.get()
+        row, col = current_pos
+
+        ## Draw the maze with our current path
+        standard_scr.clear()
+        print_maze(maze, standard_scr, path)
+        time.sleep(0.5)
+        standard_scr.refresh()
+
+        if maze[row][col] == end:
+            return path
+        
+        neighbors = find_neighbors(maze, row, col)
+        for neighbor in neighbors:
+            if neighbor in visited:
+                continue
+
+            r, c = neighbor
+            ## Skip the obstacle
+            if maze[r][c] == "#":
+                continue
+
+            new_path = path + [neighbor]
+            q.put((neighbor, new_path))
+            visited.add(neighbor)
+        
+def find_neighbors(maze, row, col):
+    neighbors = []
+    
+    ## Up
+    if row > 0:
+        neighbors.append((row-1, col))
+    ## Down
+    if row+1 < len(maze):
+        neighbors.append((row+1, col))
+    ## Left
+    if col > 0:
+        neighbors.append((row, col-1))
+    ## Right
+    if col+1 < len(maze):
+        neighbors.append((row, col+1))
+
+    return neighbors
+
+def main(standard_scr):
+    curses.init_pair(1, curses.COLOR_BLUE, curses.COLOR_BLACK)
+    curses.init_pair(2, curses.COLOR_RED, curses.COLOR_BLACK)
+    blue_and_black = curses.color_pair(1)
+    
+    find_path(maze, standard_scr)
+    standard_scr.getch()
+
+wrapper(main)

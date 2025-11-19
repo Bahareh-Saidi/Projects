@@ -1,0 +1,1 @@
+This project is a Python-based maze path finding algorithm that automatically searches for and returns the shortest path from a start point to an end point in a grid based maze. The maze is represented using a 2D list, and the algorithm explores neighboring cells to determine the optimal route without any user controlled movement.
