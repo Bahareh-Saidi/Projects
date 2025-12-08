@@ -1,0 +1,1 @@
+This Python script that lets users download YouTube videos by entering the video URL and a save location. It uses yt-dlp to fetch the highest quality video and audio, and works on Windows, Mac, and Linux. Perfect for quickly downloading videos from the terminal.
