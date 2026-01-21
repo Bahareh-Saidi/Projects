@@ -1,76 +1,97 @@
-Expense Tracker
+Expense Tracker (Python CLI)
 
-A simple Python-based Expense Tracker that allows you to add, view, and analyze expenses by category and month. This project is designed to help you track spending and practice Python programming with dictionaries, loops, and datetime handling.
+A command-line expense tracker built in Python that helps users manage income and expenses, calculate balances, and generate financial summaries by category, month, and year.
 
-Features
+The application uses structured data storage and date-based filtering to provide clear financial insights through an interactive CLI menu.
 
-Add Expenses: Add an expense with amount, category, and date.
+✨ Features
 
-View Expenses: See all recorded expenses organized by category.
+Record expenses with:
 
-Total per Category: Calculate total expenses for each category.
+Amount
 
-Filter by Month: Calculate total expenses per category for a specific month.
+Category
 
-Data Structure
+Date (YYYY-MM-DD)
 
-Expenses are stored in a nested dictionary format:
+Record income with:
 
-{
-    "food": [
-        {"amount": 25.50, "date": "2026-01-07"},
-        {"amount": 10.00, "date": "2026-01-20"}
-    ],
-    "transport": [
-        {"amount": 15.00, "date": "2026-01-10"}
-    ]
+Amount
+
+Source
+
+Date
+
+View all stored expenses and income
+
+Calculate:
+
+Total expenses per category
+
+Total income per source
+
+Overall balance (income minus expenses)
+
+Filter income and expenses by:
+
+Month
+
+Year
+
+Interactive command-line menu for seamless navigation
+
+🧱 Tech Stack
+
+Python 3
+
+collections.defaultdict for efficient data aggregation
+
+datetime for date parsing and filtering
+
+pprint for readable CLI output formatting
+
+📁 Data Model
+
+Expenses and income are stored as dictionaries where:
+
+Each category or source maps to a list of transactions
+
+Each transaction contains:
+
+amount
+
+date
+
+Example structure:
+
+expenses = {
+  "food": [
+    {"amount": 25.5, "date": "2024-03-10"},
+    {"amount": 12.0, "date": "2024-03-15"}
+  ]
 }
 
+▶️ Running the Application
 
-Category → key (e.g., "food", "transport")
+Clone the repository
 
-Value → list of expense dictionaries with amount and date
+Run the script:
 
-This structure allows easy aggregation and filtering.
+python main.py
 
-How to Use
-from collections import defaultdict
-from datetime import datetime
-from expense_tracker import Solution  # Assuming your class is in expense_tracker.py
 
-# Initialize expense tracker
-tracker = Solution()
+Follow the on-screen menu to interact with the tracker
 
-# Add expenses
-tracker.add_expense(amount=25.50, category="food", date="2026-01-07")
-tracker.add_expense(amount=10.00, category="food", date="2026-01-20")
-tracker.add_expense(amount=15.00, category="transport", date="2026-01-10")
+🖥️ CLI Menu Options
 
-# View all expenses
-print(tracker.view())
+View income
 
-# Get total per category
-print(tracker.total())
+View expenses
 
-# Filter expenses for a specific month (e.g., March)
-print(tracker.month_filter(target_month=3, target_year=2026))
+View balance
 
-Project Goals
+View income and expenses by month
 
-Learn Python data structures like dictionaries and defaultdict.
+View income and expenses by year
 
-Practice iterating and aggregating nested data.
-
-Use Python’s datetime module to handle and filter dates.
-
-Build a small, useful project suitable for a portfolio or resume.
-
-Future Improvements
-
-Add yearly totals or comparison between months.
-
-Export expenses to CSV for record keeping.
-
-Add a CLI menu for easier interaction.
-
-Include visualizations with matplotlib or seaborn.
+Exit the application
