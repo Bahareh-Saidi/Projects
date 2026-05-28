@@ -7,11 +7,11 @@ intents = {
 
 
 # Detenct the intents
-def detect_intent(text):
-    for intent, keywords in intents.items():
-        for keyword in keywords:
-            if keyword in user_input:
-                return intent
+def detect_intent(text): 
+    for intent, keywords in intents.items(): 
+        for keyword in keywords: 
+            if keyword in text: 
+                return intent 
     return None
 
 
@@ -33,56 +33,34 @@ def extract_entity(text):
     }
 
     for phrase, team in name_map["teams"].items():
-        if phrase in user_input and team in data["teams"]:
-            if intent == "team_ranking":
-                return data["teams"][team]["ranking"]
-            elif intent == "team_players":
-                return data["teams"][team]["players"]
-            else:
-                return data["teams"][team]
-            found = True
-            break
+        if phrase in text and team in data["teams"]:
+            return {
+                "type": "team",
+                "value": team
+            }
+            
+    for phrase, player in name_map["players"].items():
+        if phrase in text and player in data["players"]:
+            return {
+                type: "player",
+                "value": player
+            }
+            
+    if phrase in data["league"]:
+        return {
+            type: "league",
+            "value": "nba"
+        }
 
-    # Players
-    if not found:
-        for phrase, player in name_map["players"].items():
-            if phrase in user_input and player in data["players"]:
-                return data["players"][player]
-                found = True
-                break
 
+def decide(intent, entity, text):
 
-# 2. WORD MATCHING
-if not found:
-    for word in words:
-
-        # Team
-        if word in name_map["teams"]:
-            team = name_map["teams"][word]
-            if team in data["teams"]:
-                if intent == "team_ranking":
-                    print(data["teams"][team]["ranking"])
-                elif intent == "team_players":
-                    print(data["teams"][team]["players"])
-                else:
-                    print(data["teams"][team])
-                found = True
-                break
-
-        # Player
-        elif word in name_map["players"]:
-            player = name_map["players"][word]
-            if player in data["players"]:
-                print(data["players"][player])
-                found = True
-                break
-
-        # League
-        elif word in data["league"]:
-            print(data["league"][word])
-            found = True
-            break
-
+    if intent == "team_ranking":
+        return(data["teams"]entity["value"]["ranking"])
+    elif intent == "team_players":
+        return(data["teams"]entity["value"]["players"])
+    else:
+        return(data["teams"]entity["value"])
 
 # Chatbot
 def chatbot():
