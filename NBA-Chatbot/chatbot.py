@@ -6,17 +6,18 @@ intents = {
 }
 
 
-# Detenct the intents
-def detect_intent(text): 
-    for intent, keywords in intents.items(): 
-        for keyword in keywords: 
-            if keyword in text: 
-                return intent 
+# Detect intent
+def detect_intent(text):
+    for intent, keywords in intents.items():
+        for keyword in keywords:
+            if keyword in text:
+                return intent
     return None
 
 
-# Entity extraction
+# Extract entity
 def extract_entity(text):
+
     name_map = {
         "teams": {
             "knicks": "new york knicks",
@@ -32,48 +33,72 @@ def extract_entity(text):
         },
     }
 
+    # Teams
     for phrase, team in name_map["teams"].items():
-        if phrase in text and team in data["teams"]:
+        if phrase in text:
             return {
                 "type": "team",
                 "value": team
             }
-            
+
+    # Players
     for phrase, player in name_map["players"].items():
-        if phrase in text and player in data["players"]:
+        if phrase in text:
             return {
-                type: "player",
+                "type": "player",
                 "value": player
             }
-            
-    if phrase in data["league"]:
+
+    # League
+    if "nba" in text:
         return {
-            type: "league",
+            "type": "league",
             "value": "nba"
         }
 
+    return None
 
-def decide(intent, entity, text):
 
-    if intent == "team_ranking":
-        return(data["teams"]entity["value"]["ranking"])
-    elif intent == "team_players":
-        return(data["teams"]entity["value"]["players"])
-    else:
-        return(data["teams"]entity["value"])
+# Decision engine
+def decide(intent, entity):
+
+    if not entity:
+        return fallback
+
+    # Team logic
+    if entity["type"] == "team":
+
+        if intent == "team_ranking":
+            return data["teams"][entity["value"]]["ranking"]
+
+        elif intent == "team_players":
+            return data["teams"][entity["value"]]["players"]
+
+        else:
+            return data["teams"][entity["value"]]
+
+    # Player logic
+    elif entity["type"] == "player":
+        return data["players"][entity["value"]]
+
+    # League logic
+    elif entity["type"] == "league":
+        return data["league"]
+
+    return fallback
+
 
 # Chatbot
 def chatbot():
-    text = input("Ask about movies: ").lower()
+
+    text = input("Ask any question about NBA: ").lower()
 
     intent = detect_intent(text)
     entity = extract_entity(text)
-    found = False
-
-    # default intent if missing
-    if not intent and entity:
-        print(fallback)
 
     response = decide(intent, entity)
 
     print(response)
+
+
+chatbot()
