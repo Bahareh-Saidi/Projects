@@ -74,6 +74,96 @@ data = {
                 "Pat Spencer Guard providing veteran leadership and playmaking.",
             ],
         },
+        "boston celtics": {
+            "ranking": "3rd in Eastern Conference",
+            "players": [
+                "Jayson Tatum Superstar forward known for elite scoring, rebounding, and leadership.",
+                "Jaylen Brown All Star wing player who excels at scoring, defense, and athletic play.",
+                "Derrick White Versatile guard known for defense, shooting, and playmaking.",
+                "Jrue Holiday Veteran guard who provides elite perimeter defense and leadership.",
+                "Kristaps Porziņģis Skilled center with shot blocking, scoring, and three point shooting.",
+                "Payton Pritchard Guard known for energy, shooting, and instant offense off the bench.",
+                "Sam Hauser Sharpshooting forward who stretches the floor.",
+                "Al Horford Veteran big man known for defense, leadership, and basketball IQ.",
+                "Neemias Queta Center providing size, rebounding, and rim protection.",
+                "Baylor Scheierman Young wing player adding shooting and versatility."
+            ],
+        },
+        "denver nuggets": {
+            "ranking": "4th in Western Conference",
+            "players": [
+                "Nikola Jokić MVP center known for elite passing, scoring, and rebounding.",
+                "Jamal Murray Dynamic guard who excels in scoring and clutch performances.",
+                "Michael Porter Jr. Forward known for three point shooting and scoring ability.",
+                "Aaron Gordon Athletic forward providing defense, rebounding, and finishing.",
+                "Christian Braun Young guard contributing defense and energy.",
+                "Peyton Watson Versatile wing player with athleticism and defensive upside.",
+                "Julian Strawther Guard known for shooting and scoring depth.",
+                "Zeke Nnaji Big man providing frontcourt depth and rebounding.",
+                "DeAndre Jordan Veteran center offering leadership and experience.",
+                "Hunter Tyson Forward developing his role as a floor spacer."
+            ],
+        },
+        "milwaukee bucks": {
+            "ranking": "5th in Eastern Conference",
+            "players": [
+                "Giannis Antetokounmpo Superstar forward known for dominant scoring, rebounding, and defense.",
+                "Damian Lillard Elite guard recognized for deep shooting range and clutch scoring.",
+                "Khris Middleton Veteran wing player who contributes scoring and leadership.",
+                "Brook Lopez Center known for rim protection and three point shooting.",
+                "Bobby Portis Forward/center providing energy, rebounding, and scoring.",
+                "Pat Connaughton Athletic guard who contributes defense and hustle.",
+                "AJ Green Sharpshooting guard adding perimeter scoring.",
+                "Andre Jackson Jr. Young wing player known for athleticism and defense.",
+                "Gary Trent Jr. Guard capable of scoring and perimeter defense.",
+                "Chris Livingston Forward prospect with athletic upside."
+            ],
+        },  
+        "phoenix suns": {
+            "ranking": "7th in Western Conference",
+            "players": [
+                "Devin Booker Star guard known for scoring, playmaking, and leadership.",
+                "Kevin Durant Future Hall of Fame forward with elite scoring ability.",
+                "Bradley Beal Veteran guard who provides scoring and shot creation.",
+                "Grayson Allen Guard known for efficient three point shooting.",
+                "Jusuf Nurkić Center contributing rebounding and interior scoring.",
+                "Royce O'Neale Versatile wing player known for defense and toughness.",
+                "Josh Okogie Athletic guard contributing defensive intensity.",
+                "Bol Bol Forward/center with unique size and scoring ability.",
+                "Damion Lee Veteran guard providing depth and shooting.",
+                "Nassir Little Forward known for athleticism and energy."
+            ],
+        },
+        "dallas mavericks": {
+            "ranking": "6th in Western Conference",
+            "players": [
+                "Anthony Davis Superstar big man known for defense, scoring, and rebounding.",
+                "Kyrie Irving Elite guard with exceptional ball handling and scoring ability.",
+                "Klay Thompson Veteran shooter and multiple time NBA champion.",
+                "PJ Washington Forward contributing defense, rebounding, and scoring.",
+                "Daniel Gafford Center known for rim protection and finishing around the basket.",
+                "Dereck Lively II Young center with strong defensive potential.",
+                "Max Christie Athletic guard contributing perimeter defense.",
+                "Naji Marshall Versatile forward providing energy and toughness.",
+                "Dante Exum Guard known for playmaking and defense.",
+                "Dwight Powell Veteran big man and long time Mavericks contributor."
+            ],
+        },
+        "miami heat": {
+            "ranking": "8th in Eastern Conference",
+            "players": [
+                "Bam Adebayo All Star center known for defense, rebounding, and versatility.",
+                "Tyler Herro Guard recognized for scoring and shot creation.",
+                "Andrew Wiggins Athletic wing player contributing defense and scoring.",
+                "Terry Rozier Veteran guard known for quick scoring bursts.",
+                "Duncan Robinson Elite three point shooter who spaces the floor.",
+                "Jaime Jaquez Jr. Young forward with strong all around skills.",
+                "Nikola Jović Forward known for size, shooting, and playmaking.",
+                "Kevin Love Veteran forward providing leadership and rebounding.",
+                "Haywood Highsmith Defensive minded wing player.",
+                "Josh Richardson Experienced guard known for perimeter defense."
+            ],
+        },
     },
     "league": {
         "nba": "The NBA is the top professional basketball league in the U.S. and Canada with 30 teams."
