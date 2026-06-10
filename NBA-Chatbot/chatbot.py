@@ -24,6 +24,12 @@ def extract_entity(text):
             "la lakers": "los angeles lakers",
             "lakers": "los angeles lakers",
             "warriors": "golden state warriors",
+            "celtics": "boston celtics",
+            "nuggets": "denver nuggets",
+            "bucks": "milwaukee bucks",
+            "suns": "phoenix suns",
+            "mavericks": "dallas mavericks",
+            "heat": "miami heat"
         },
         "players": {
             "jalen brunson": "jalen brunson",
