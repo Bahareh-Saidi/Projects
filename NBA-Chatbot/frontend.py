@@ -11,6 +11,36 @@ def _add_basketball_line(output, text):
     output.see(tk.END)
 
 
+def _insert_answer_block(output, text):
+    block = str(text).strip()
+    if not block:
+        output.insert(tk.END, "\n")
+        return
+
+    output.insert(tk.END, "\n")
+    output.insert(tk.END, "NBA Desk\n", "header")
+    output.insert(tk.END, "─" * 50 + "\n", "divider")
+
+    for line in block.splitlines():
+        if not line.strip():
+            output.insert(tk.END, "\n")
+            continue
+
+        label = "normal"
+        upper = line.upper()
+        if upper.endswith("STANDINGS") or upper.endswith("ROSTER"):
+            label = "section"
+        elif upper.startswith("CURRENT NBA PLAYERS") or upper.startswith("NBA TEAMS"):
+            label = "section"
+        elif upper.startswith("PLAYER:"):
+            label = "player"
+
+        output.insert(tk.END, f"{line}\n", label)
+
+    output.insert(tk.END, "\n")
+    output.see(tk.END)
+
+
 def launch_gui():
     window = tk.Tk()
     window.title("NBA Terminal")
@@ -28,6 +58,10 @@ def launch_gui():
         padx=16,
         pady=16,
     )
+    output.tag_config("header", foreground="#ffd166", font=("Menlo", 13, "bold"))
+    output.tag_config("section", foreground="#7dd3fc", font=("Menlo", 12, "bold"))
+    output.tag_config("player", foreground="#86efac", font=("Menlo", 12, "bold"))
+    output.tag_config("divider", foreground="#4b5563")
     output.pack(fill=tk.BOTH, expand=True, padx=12, pady=12)
 
     output.insert(tk.END, "🏀 NBA terminal ready. Ask a question below.\n")
@@ -46,7 +80,9 @@ def launch_gui():
             return "break"
 
         output.insert(tk.END, "\n")
-        _add_basketball_line(output, "NBA Desk: loading latest data...")
+        output.insert(tk.END, "NBA Desk\n", "header")
+        output.insert(tk.END, "─" * 50 + "\n", "divider")
+        output.insert(tk.END, "Loading latest data...\n")
         output.configure(state=tk.DISABLED)
         busy = True
         output.see(tk.END)
@@ -67,7 +103,7 @@ def launch_gui():
     def show_answer(response):
         nonlocal busy, input_start
         output.configure(state=tk.NORMAL)
-        _add_basketball_line(output, f"NBA Desk: {response}")
+        _insert_answer_block(output, response)
         output.insert(tk.END, "🏀 ")
         output.mark_set(tk.INSERT, tk.END)
         input_start = output.index(tk.INSERT)
