@@ -1,3 +1,5 @@
+# 🏀 NBA Chatbot
+
 A Python-based conversational NBA chatbot that understands natural language questions about NBA teams, players, and the league.
 
 The chatbot uses a rule-based natural language processing pipeline to identify what the user is asking, extract relevant NBA entities, and generate an appropriate response.
