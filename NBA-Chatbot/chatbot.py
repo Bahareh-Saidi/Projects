@@ -19,6 +19,23 @@ from nba_api.stats.endpoints import (
 LEAGUE_ID = "00"
 
 
+def format_section(title, lines):
+    cleaned = [str(line) for line in lines if line is not None]
+    if not cleaned:
+        return title
+
+    width = max(len(title), max(len(str(line)) for line in cleaned))
+    divider = "-" * width
+    return "\n".join([title, divider, *cleaned])
+
+
+def format_kv(title, data):
+    lines = [f"{title}"]
+    for key, value in data.items():
+        lines.append(f"{key}: {value}")
+    return format_section(title, lines[1:])
+
+
 # ---------------------------------------------------------
 # SEASON
 # ---------------------------------------------------------
@@ -124,13 +141,12 @@ def get_all_teams():
 
     all_teams = teams.get_teams()
 
-    output = ["NBA TEAMS", ""]
+    output = ["NBA TEAMS"]
 
     for team in all_teams:
+        output.append(f"{team['full_name']:<26} ({team['abbreviation']})")
 
-        output.append(f"{team['full_name']} " f"({team['abbreviation']})")
-
-    return "\n".join(output)
+    return format_section("NBA TEAMS", output[1:])
 
 
 # ---------------------------------------------------------
@@ -155,7 +171,7 @@ def get_all_players():
 
         columns = {name: index for index, name in enumerate(headers)}
 
-        output = [f"CURRENT NBA PLAYERS ({season})", ""]
+        output = [f"CURRENT NBA PLAYERS ({season})"]
 
         for row in rows:
 
@@ -166,11 +182,11 @@ def get_all_players():
             team_name = row[columns["TEAM_NAME"]]
 
             if team_name:
-                output.append(f"{player_name} - " f"{team_city} {team_name}")
+                output.append(f"{player_name:<24} - {team_city} {team_name}")
             else:
                 output.append(player_name)
 
-        return "\n".join(output)
+        return format_section(f"CURRENT NBA PLAYERS ({season})", output[1:])
 
     except Exception as error:
 
@@ -199,7 +215,7 @@ def get_team_roster(team):
 
         columns = {name: index for index, name in enumerate(headers)}
 
-        output = [f"{team['full_name']} ROSTER", f"Season: {season}", ""]
+        output = [f"Season: {season}"]
 
         for row in rows:
 
@@ -220,17 +236,11 @@ def get_team_roster(team):
             school = row[columns["SCHOOL"]]
 
             output.append(
-                f"{name} | "
-                f"#{number} | "
-                f"{position} | "
-                f"{height} | "
-                f"{weight} | "
-                f"Age: {age} | "
-                f"Exp: {experience} | "
-                f"School: {school}"
+                f"{name:<22} | #{number:<2} | {position:<3} | {height} | {weight} | "
+                f"Age {age} | Exp {experience} | {school}"
             )
 
-        return "\n".join(output)
+        return format_section(f"{team['full_name']} ROSTER", output)
 
     except Exception as error:
 
@@ -269,15 +279,15 @@ def get_team_standings(team):
 
             if team_name.lower() == team["full_name"].lower():
 
-                return "\n".join(
+                return format_section(
+                    f"{team_name} STANDINGS",
                     [
-                        f"{team_name}",
                         f"Season: {season}",
                         f"Conference: {row[columns['Conference']]}",
                         f"Conference Rank: {row[columns['PlayoffRank']]}",
                         f"Record: {row[columns['Record']]}",
                         f"Streak: {row[columns['strCurrentStreak']]}",
-                    ]
+                    ],
                 )
 
         return "Team not found in standings."
@@ -312,9 +322,9 @@ def get_player_info(player):
 
         row = rows[0]
 
-        return "\n".join(
+        return format_section(
+            f"PLAYER: {row[columns['DISPLAY_FIRST_LAST']]}",
             [
-                f"PLAYER: {row[columns['DISPLAY_FIRST_LAST']]}",
                 f"Team: {row[columns['TEAM_NAME']]}",
                 f"Position: {row[columns['POSITION']]}",
                 f"Height: {row[columns['HEIGHT']]}",
@@ -326,7 +336,7 @@ def get_player_info(player):
                 f"Draft Year: {row[columns['DRAFT_YEAR']]}",
                 f"Draft Round: {row[columns['DRAFT_ROUND']]}",
                 f"Draft Number: {row[columns['DRAFT_NUMBER']]}",
-            ]
+            ],
         )
 
     except Exception as error:
@@ -364,9 +374,9 @@ def get_player_stats(player):
 
             if row[columns["PLAYER_ID"]] == player["id"]:
 
-                return "\n".join(
+                return format_section(
+                    f"{row[columns['PLAYER_NAME']]} - {season}",
                     [
-                        f"{row[columns['PLAYER_NAME']]} - {season}",
                         f"Games: {row[columns['GP']]}",
                         f"Minutes: {row[columns['MIN']]:.1f}",
                         f"Points: {row[columns['PTS']]:.1f}",
@@ -379,7 +389,7 @@ def get_player_stats(player):
                         f"FT%: {row[columns['FT_PCT']]:.3f}",
                         f"Turnovers: {row[columns['TOV']]:.1f}",
                         f"Plus/Minus: {row[columns['PLUS_MINUS']]:.1f}",
-                    ]
+                    ],
                 )
 
         return (
@@ -421,16 +431,16 @@ def get_player_career(player):
         # Most recent season
         row = rows[-1]
 
-        return "\n".join(
+        return format_section(
+            f"{player['full_name']} CAREER DATA",
             [
-                f"{player['full_name']} - Career Data",
                 f"Games: {row[columns['GP']]}",
                 f"Points: {row[columns['PTS']]:.1f}",
                 f"Rebounds: {row[columns['REB']]:.1f}",
                 f"Assists: {row[columns['AST']]:.1f}",
                 f"Steals: {row[columns['STL']]:.1f}",
                 f"Blocks: {row[columns['BLK']]:.1f}",
-            ]
+            ],
         )
 
     except Exception as error:
