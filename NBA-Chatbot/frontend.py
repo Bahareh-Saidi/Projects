@@ -54,8 +54,11 @@ def launch_gui():
         def fetch_answer():
             try:
                 response = answer_question(text)
-            except Exception as error:
-                response = f"Unable to get an answer: {error}"
+            except Exception:
+                response = (
+                    "I couldn't reach the NBA stats servers from this network. "
+                    "Please check your internet connection or proxy settings, then try again."
+                )
             window.after(0, show_answer, response)
 
         threading.Thread(target=fetch_answer, daemon=True).start()

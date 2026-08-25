@@ -19,6 +19,30 @@ from nba_api.stats.endpoints import (
 LEAGUE_ID = "00"
 
 
+def format_network_error(error):
+    message = str(error).lower()
+    blocked = [
+        "proxy",
+        "403 forbidden",
+        "tunnel connection failed",
+        "max retries exceeded",
+        "connection refused",
+        "timed out",
+        "temporarily unavailable",
+        "ssl",
+        "certificate",
+        "network",
+    ]
+
+    if any(item in message for item in blocked):
+        return (
+            "I couldn't reach the NBA stats servers from this network. "
+            "Please check your internet connection or proxy settings, then try again."
+        )
+
+    return "I couldn't retrieve the latest NBA data right now. Please try again in a moment."
+
+
 # ---------------------------------------------------------
 # SEASON
 # ---------------------------------------------------------
@@ -174,7 +198,7 @@ def get_all_players():
 
     except Exception as error:
 
-        return "I couldn't retrieve the current NBA players.\n" f"Error: {error}"
+        return format_network_error(error)
 
 
 # ---------------------------------------------------------
@@ -234,11 +258,7 @@ def get_team_roster(team):
 
     except Exception as error:
 
-        return (
-            f"I couldn't retrieve the "
-            f"{team['full_name']} roster.\n"
-            f"Error: {error}"
-        )
+        return format_network_error(error)
 
 
 # ---------------------------------------------------------
@@ -284,7 +304,7 @@ def get_team_standings(team):
 
     except Exception as error:
 
-        return "I couldn't retrieve the standings.\n" f"Error: {error}"
+        return format_network_error(error)
 
 
 # ---------------------------------------------------------
@@ -331,7 +351,7 @@ def get_player_info(player):
 
     except Exception as error:
 
-        return "I couldn't retrieve player information.\n" f"Error: {error}"
+        return format_network_error(error)
 
 
 # ---------------------------------------------------------
@@ -389,7 +409,7 @@ def get_player_stats(player):
 
     except Exception as error:
 
-        return "I couldn't retrieve player statistics.\n" f"Error: {error}"
+        return format_network_error(error)
 
 
 # ---------------------------------------------------------
@@ -435,7 +455,7 @@ def get_player_career(player):
 
     except Exception as error:
 
-        return "I couldn't retrieve career statistics.\n" f"Error: {error}"
+        return format_network_error(error)
 
 
 # ---------------------------------------------------------
